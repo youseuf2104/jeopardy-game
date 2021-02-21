@@ -50,15 +50,68 @@ int main(int argc, char *argv[])
     
 
     // Perform an infinite loop getting command input from users until game ends
-    while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
+    //while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
+
+	//Start with 0 for player 0 in the players array
+	int play = 0;
+	//Holds true or false depending on if question was answered right
+	bool checker;
+	//Checks the global variable NUM_QUESTIONS to see if there are still more unanswered questions
+	while (NUM_QUESTIONS > 0)
     {
-		
-        // Call functions from the questions and players source files
-		
+		//Goes back to the first player after all players have a turn, loops
+		if (play == 3) {
+			play = 0
+		}
+		//Will show the categories to the player to chose from (global function)
+		display_categories();
+
+
+		printf(("%s's Turn. Chose a Category: \n", players[play].name);)
+		scanf("%s", category);
+
+		printf(("Chose a value: \n")
+		scanf("%d", value);
+
+		//Check globalfunction to see if that specific question was already chosen before
+		if (already_answered(category, value)) {
+			printf("That question has been answered. Please chose a different question. ");
+			play--;
+		}
+		printf("\n");
+
+		else {
+			//Use global function to show the corresponding question
+			display_question(category, value);
+			printf("Enter your Answer: \n ");
+			scanf("%s", response);
+			//Takes out the phrasing from the answer taken
+			tokenize(response, token);
+			//use function to check if the player's answer is right
+			checker = valid_answer(category, value, token[2]);
+
+			if (checker) {
+				printf("Your answer is correct. \n");
+				//Add the questions's value to that player object's score variable
+				players[play].score += value;
+			}
+			else {
+				printf("Your answer is wrong. \n");
+			}
+			//add the chosen uestions to answered 
+			question_answered(category, value);
+			//Decrease number of questions left
+			NUM_QUESTIONS--;
+		}
+			//Increment to go the next player's turn
+			play++;
 
         // Execute the game until all questions are answered
 
-        // Display the final results and exit
+        
     }
+	// Display the final results and exit
+	show_results(players,4);
+
     return EXIT_SUCCESS;
 }
