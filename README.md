@@ -1,1 +1,1 @@
-"# jeopardy-game" 
+# jeopardy-game
