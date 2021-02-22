@@ -20,5 +20,9 @@ bool player_exists(player *players, int num_players, char *name)
 // player given their name
 void update_score(player *players, int num_players, char *name, int score)
 {
-    
+	for (int i = 0; i <= 3; i++) {
+		if (players[i].name == name) {
+			player.score += score;
+		}
+	}
 }

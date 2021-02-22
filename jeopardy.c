@@ -20,10 +20,18 @@
 // Put global environment variables here
 
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
-void tokenize(char *input, char **tokens);
+void tokenize(char *input, char **tokens) {
+	char *first = strtok(input, " ");
+	first = strtok(input, " ");
+	for (index = 0; first != NULL; index++) {
+		strcpy(tokens[index], first);
+		first = strtok(NULL, " ");
+	}
+}
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
 void show_results(player *players, int num_players);
+	
 
 
 int main(int argc, char *argv[])
@@ -98,8 +106,7 @@ int main(int argc, char *argv[])
 			else {
 				printf("Your answer is wrong. \n");
 			}
-			//add the chosen uestions to answered 
-			question_answered(category, value);
+			
 			//Decrease number of questions left
 			NUM_QUESTIONS--;
 		}
