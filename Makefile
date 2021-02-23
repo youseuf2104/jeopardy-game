@@ -4,10 +4,10 @@ LFLAGS =
 LIBS = 
 SOURCES = jeopardy.c questions.c players.c
 OBJECTS = $(subst .c,.o,$(SOURCES))
-EXE = jeopardy.exe
+BIN = jeopardy
 .PHONY: clean help
 
-jeopardy.exe : jeopardy.o questions.o players.o
+jeopardy : $(OBJECTS)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@ 
 
 %.o : %.c
