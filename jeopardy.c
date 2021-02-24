@@ -69,8 +69,7 @@ int main(int argc, char *argv[])
         char *category = (char *) calloc(BUFFER_LEN, sizeof(char));
         // ensure we dont mismatch answer/tokenization data types 
         char *qanswer = (char *) calloc(BUFFER_LEN, sizeof(char));
-        char **token[4][BUFFER_LEN] = {{0}};
-
+        //
         int value;
         // Execute the game until all questions are answered
         if(q_count > 0) {
@@ -106,10 +105,13 @@ int main(int argc, char *argv[])
                 printf("\n");
                 printf("You said: %s\n", qanswer);
                 //
-                tokenize(qanswer, token);
-                printf("Tokens: %s %s %s\n", &token[0], &token[1], &token[2]);
+                char **token_arr[4][BUFFER_LEN];
+                //
+                tokenize(qanswer, token_arr); 
+                //      
+                printf("token: %s\n", &token_arr);        
                 // note you must enter who is or what is (requirement 7) in the answer
-                if(valid_answer(category, value, token[2])) {
+                if(valid_answer(category, value, &token_arr)) {
                     printf(COL_GRN "%s is correct!\n" COL_DEF "You've earned $%d!\n\n", players[current_player].name, value);
                     players[current_player].score += value;
                 } else {
@@ -119,6 +121,7 @@ int main(int argc, char *argv[])
             // decrement the question count
             q_count--; 
             // next player
+            
             current_player++; 
         } else {
             // End the game
@@ -134,11 +137,17 @@ int main(int argc, char *argv[])
 // basically a string splitting method by spaces and stores to a pointer
 // from http://www.tutorialspoint.com/c_standard_library/c_function_strtok.htm
 void tokenize(char *input, char **tokens) {
-	char *key1 = strtok(input, " ");
-
-    for (int i = 0; key1 != NULL; i++) {
-		strcpy(tokens[i], key1);
-		key1 = strtok(NULL, " ");
+	char *key; 
+    key = strtok(input, " ");
+    //
+    for (int i = 0; key != NULL; i++) {
+        if(i > 4) {
+            break;
+        }
+		strcpy(&tokens[0], key);
+        printf("%d %s\n", i, key);
+        // next key 
+		key = strtok(NULL, " ");
 	}
 }
 
