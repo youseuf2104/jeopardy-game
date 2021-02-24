@@ -145,7 +145,6 @@ void tokenize(char *input, char **tokens) {
             break;
         }
 		strcpy(&tokens[0], key);
-        printf("%d %s\n", i, key);
         // next key 
 		key = strtok(NULL, " ");
 	}
